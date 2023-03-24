@@ -91,13 +91,17 @@ cousin$percent_set <- sapply(cousin$percent, make_pct)
 world_map %<>% left_join(cousin, by = "region")
 world_map["percent_set"][is.na(world_map["percent_set"])] <- "Unknown"
 
+cat_order <- c("Unknown", "<1", "1-4", "5-9", "10-19", "20-29", "30-39", "40-49", "50+")
+world_map$percent_set <- factor(world_map$percent_set, levels = cat_order)
+world_map <- world_map[order(world_map$percent_set), ]
+
 #world_map %>% group_by(region) %>% summarize(mean = mean(long)) # Use to see countries
 
 # Graphing
 theme_set(theme_void())
 
-colorscale = scale_fill_manual(values=c("#FEFECE", "#FDD181", 
-    "#FFBD7F", "#FFA681", "#DA7957", "#BA5336", "#932D17", "#720000", "#EFFCFE"))
+colorscale = scale_fill_manual(values=c( "#EFFCFE", "#FEFECE", "#FDD181", 
+    "#FFBD7F", "#FFA681", "#DA7957", "#BA5336", "#932D17", "#720000"))
 
 ggplot(world_map, aes(x = long, y = lat, group = group)) +
   geom_polygon(aes(fill=percent_set), colour = "black") + colorscale
