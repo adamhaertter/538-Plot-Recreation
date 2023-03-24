@@ -104,7 +104,7 @@ colorscale = scale_fill_manual(values=c( "#EFFCFE", "#FEFECE", "#FDD181",
     "#FFBD7F", "#FFA681", "#DA7957", "#BA5336", "#932D17", "#720000"))
 
 ggplot(world_map, aes(x = long, y = lat, group = group)) +
-  geom_polygon(aes(fill=percent_set), colour = "black") + colorscale
+  geom_polygon(aes(fill=percent_set), colour = "black") + colorscale + theme(legend.position = "bottom") + guides(fill = guide_legend(title = "Consanguinity (%)"))
 
 ```
 
