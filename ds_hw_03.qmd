@@ -96,12 +96,11 @@ world_map["percent_set"][is.na(world_map["percent_set"])] <- "Unknown"
 # Graphing
 theme_set(theme_void())
 
-colorscale = scale_fill_manual(values=c("olivedrab", "black", "darkblue", 
-    "yellow", "pink", "red", "orange", "lightblue", "orchid","green", "tan", 
-    "cyan", "darkgray", "purple", "magenta", "peru", "lightgray", "blue"))
+colorscale = scale_fill_manual(values=c("#FEFECE", "#FDD181", 
+    "#FFBD7F", "#FFA681", "#DA7957", "#BA5336", "#932D17", "#720000", "#EFFCFE"))
 
 ggplot(world_map, aes(x = long, y = lat, group = group)) +
-  geom_polygon(aes(fill=percent_set), colour = "black") 
+  geom_polygon(aes(fill=percent_set), colour = "black") + colorscale
 
 ```
 
