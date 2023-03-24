@@ -22,7 +22,7 @@ For this assignment, you are going to work in groups of two or three to recreate
     - Choose one or two other classmates to work with
     - Browse the offerings from the `fivethirtyeight` package. You can run `data(package = "fivethirtyeight")` to get all of the datasets.
     - Choose an article that has a reasonable plot that seems possible to replicate (or at least get close!)
-    - Contact me as a team and let me know which data you plan to use. I will vet if it's at the appropriate level (too easy or two hard).
+    - Contact me as a team and let me know which data you plan to use. I will vet if it's at the appropriate level (too easy or too hard).
     - Make the plot and comment on how you plot is similar / how it is different.
     - Due Date: March 18th, 2022
     
@@ -42,12 +42,21 @@ For this assignment, you are going to work in groups of two or three to recreate
 #install.packages("fivethirtyeight")
 library("tidyverse")
 library("fivethirtyeight")
+library("dplyr")
+require("maps")
+require("viridis")
 ```
 
 
 ```{r}
 # code goes here!
-data(package = "fivethirtyeight")
+# data(package = "fivethirtyeight")
+cousin <- fivethirtyeight::cousin_marriage
+world_map <- map_data("world")
+
+ggplot(world_map, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill="white", colour = "black")
+
 ```
 
 __Comment:__
