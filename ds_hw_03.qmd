@@ -57,20 +57,51 @@ world_map <- map_data("world")
 
 # Data Manipulation
 world_map %<>% filter(region != "Antarctica")
+
 cousin %<>% mutate(region = country) %>% .[, 2:3]
 cousin[64, "region"] <- "UK"
 cousin[67, "region"] <- "Netherlands"
 cousin[68, "region"] <- "USA"
 
-world_map %<>% left_join(cousin, by = "region")
+make_pct <- function(x) {
+  if(is.na(x))
+      return("Unknown")
+  if(x < 1)
+      return("<1")
+  else if(x >= 1 && x < 5)
+      return("1-4")
+  else if(x >= 5 && x < 10)
+      return("5-9")
+  else if(x >= 10 && x < 20)
+      return("10-19")
+  else if(x >= 20 && x < 30)
+      return("20-29")
+  else if(x >= 30 && x < 40)
+      return("30-39")
+  else if(x >= 40 && x < 50)
+      return("40-49")
+  else if(x >= 50)
+      return("50+")
+  else
+      return("Unknown")
+}
 
-#world_map %>% group_by(region) %>% summarize(mean = mean(long))
+cousin$percent_set <- sapply(cousin$percent, make_pct)
+
+world_map %<>% left_join(cousin, by = "region")
+world_map["percent_set"][is.na(world_map["percent_set"])] <- "Unknown"
+
+#world_map %>% group_by(region) %>% summarize(mean = mean(long)) # Use to see countries
 
 # Graphing
 theme_set(theme_void())
+
+colorscale = scale_fill_manual(values=c("olivedrab", "black", "darkblue", 
+    "yellow", "pink", "red", "orange", "lightblue", "orchid","green", "tan", 
+    "cyan", "darkgray", "purple", "magenta", "peru", "lightgray", "blue"))
+
 ggplot(world_map, aes(x = long, y = lat, group = group)) +
-  geom_polygon(aes(fill=percent), colour = "black") + 
-  scale_fill_viridis_c()
+  geom_polygon(aes(fill=percent_set), colour = "black") 
 
 ```
 
