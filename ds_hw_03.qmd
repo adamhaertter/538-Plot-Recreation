@@ -43,6 +43,7 @@ For this assignment, you are going to work in groups of two or three to recreate
 library("tidyverse")
 library("fivethirtyeight")
 library("dplyr")
+library("magrittr")
 require("maps")
 require("viridis")
 ```
@@ -54,8 +55,22 @@ require("viridis")
 cousin <- fivethirtyeight::cousin_marriage
 world_map <- map_data("world")
 
+# Data Manipulation
+world_map %<>% filter(region != "Antarctica")
+cousin %<>% mutate(region = country) %>% .[, 2:3]
+cousin[64, "region"] <- "UK"
+cousin[67, "region"] <- "Netherlands"
+cousin[68, "region"] <- "USA"
+
+world_map %<>% left_join(cousin, by = "region")
+
+#world_map %>% group_by(region) %>% summarize(mean = mean(long))
+
+# Graphing
+theme_set(theme_void())
 ggplot(world_map, aes(x = long, y = lat, group = group)) +
-  geom_polygon(fill="white", colour = "black")
+  geom_polygon(aes(fill=percent), colour = "black") + 
+  scale_fill_viridis_c()
 
 ```
 
