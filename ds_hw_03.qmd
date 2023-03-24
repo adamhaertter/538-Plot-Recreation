@@ -109,4 +109,10 @@ ggplot(world_map, aes(x = long, y = lat, group = group)) +
   geom_polygon(aes(fill=percent_set), colour = "black") + colorscale + theme(legend.position = "bottom", legend.direction = "vertical", legend.justification = c(0.020, 1), legend.key.size = unit(3.5, "mm"), legend.title = element_text(face = "bold")) + guides(fill = guide_legend(title = "Consanguinity (%)"))
 ```
 
-__Comment:__
+__Comment:__ Our graph is fairly close to the original. We had to learn a lot about formatting the legend to make it like the original and we also combined Sudan and South Sudan to be more accurate. We discovered that many countries that had data in the original graphic did not have data in the dataset causing some differences between the two. Also, the original plot has India split up into multiple subregions which is odd considering no other country is split the same way. The data for the subregions was also not provided in the set so it was impossible to replicate.
+
+Despite the lack of data in some areas, we can see a trend form where some regions have a higher rate of consanguinity than others. For example, it is more common in areas such as North Africa and the Middle East in comparison to places such as the West Hemisphere. It would be interesting to see how this data has changed over time as the article claims that it was gathered in 2001. That means that this is over two decades old and has possibly seen changes since then. Our hypothesis is that this trend has gone down overall.
+
+We recreated the original plot to the best of our ability. However, the fundamental differences between the data in the dataset and the data used to create the original graph did prevent us from making it wholly accurate (Ex. Russia, Mauritania missing from the data from 538, data from South Africa included in the dataset but not the graph) . This is a little disappointing,  but we thought it was best not to make up data or alter the original data in large ways to match these changes. We are still very proud of the plot we created. The original plot can be seen below for reference:
+
+![](original.png)
