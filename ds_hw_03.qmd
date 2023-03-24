@@ -63,6 +63,8 @@ cousin[64, "region"] <- "UK"
 cousin[67, "region"] <- "Netherlands"
 cousin[68, "region"] <- "USA"
 
+cousin[nrow(cousin) + 1,] <- list(cousin$percent[cousin$region == "Sudan"], "South Sudan")
+
 make_pct <- function(x) {
   if(is.na(x))
       return("Unknown")
@@ -104,7 +106,7 @@ colorscale = scale_fill_manual(values=c( "#EFFCFE", "#FEFECE", "#FDD181",
     "#FFBD7F", "#FFA681", "#DA7957", "#BA5336", "#932D17", "#720000"))
 
 ggplot(world_map, aes(x = long, y = lat, group = group)) +
-  geom_polygon(aes(fill=percent_set), colour = "black") + colorscale + theme(legend.position = "bottom") + guides(fill = guide_legend(title = "Consanguinity (%)"))
+  geom_polygon(aes(fill=percent_set), colour = "black") + colorscale + theme(legend.position = "bottom", legend.direction = "vertical", legend.justification = c(0.020, 1), legend.key.size = unit(3.5, "mm"), legend.title = element_text(face = "bold")) + guides(fill = guide_legend(title = "Consanguinity (%)"))
 
 ```
 
